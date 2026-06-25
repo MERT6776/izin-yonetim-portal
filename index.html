@@ -1,148 +1,210 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İzin Yönetim Portalı - Burhan Biliktü</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-.app { min-height: 100vh; background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%); display: flex; flex-direction: column; }
-.login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; }
-.login-card { background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 2rem 1.5rem; width: 100%; max-width: 420px; border: 1px solid #e0f2fe; }
-.login-header { text-align: center; margin-bottom: 2rem; }
-.logo-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 28px; }
-h1 { font-size: 24px; font-weight: 600; color: #0f766e; margin-bottom: 0.5rem; }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; font-size: 13px; font-weight: 500; color: #1e293b; margin-bottom: 0.5rem; }
-.form-group input { width: 100%; padding: 0.875rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; font-family: inherit; }
-.form-group input:focus { outline: none; border-color: #0f766e; box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1); }
-.login-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
-.login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(15, 118, 110, 0.3); }
-.test-info { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; font-size: 12px; color: #166534; line-height: 1.6; }
-.error-msg { background: #fee2e2; border: 1px solid #fca5a5; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; font-size: 12px; color: #dc2626; display: none; }
-.error-msg.show { display: block; }
-.dashboard { flex: 1; display: flex; flex-direction: column; padding: 1rem; }
-.header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
-.header h2 { font-size: 18px; font-weight: 600; color: #0f766e; }
-.logout-btn { padding: 0.5rem 1rem; background: white; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-size: 12px; color: #1e293b; font-weight: 500; }
-.tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; background: white; padding: 0.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-.tab { flex: 1; padding: 0.75rem; background: transparent; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; color: #64748b; cursor: pointer; }
-.tab.active { background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; }
-.content { flex: 1; overflow-y: auto; padding-bottom: 1rem; }
-.card { background: white; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e0f2fe; padding: 1.5rem; margin-bottom: 1rem; }
-.card-title { font-size: 14px; font-weight: 600; color: #0f766e; margin-bottom: 1rem; }
-.summary { background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); border: 1px solid #bbf7d0; border-radius: 12px; padding: 1.5rem; text-align: center; margin-bottom: 1rem; }
-.summary-label { font-size: 11px; font-weight: 600; color: #059669; text-transform: uppercase; margin-bottom: 0.75rem; }
-.summary-number { font-size: 52px; font-weight: 700; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-.info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-.info-card-label { font-size: 10px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem; }
-.info-card-value { font-size: 14px; font-weight: 600; color: #0f766e; }
-.btn { flex: 1; padding: 1rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; font-weight: 600; cursor: pointer; min-height: 48px; display: flex; align-items: center; justify-content: center; }
-.btn-primary { background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; }
-.hidden { display: none; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İzin Yönetim Portalı - Burhan Biliktü</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%); color: #1e293b; }
+        .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+        
+        /* Giriş Ekranı Kartı */
+        .login-card { background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 2.5rem 2rem; width: 100%; max-width: 420px; border: 1px solid #e0f2fe; text-align: center; }
+        .login-header { margin-bottom: 2rem; }
+        .logo-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 32px; color: white; }
+        h1 { font-size: 24px; font-weight: 700; color: #0f766e; margin-bottom: 0.25rem; }
+        .subtitle { color: #64748b; font-size: 14px; }
+        
+        .form-group { text-align: left; margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 0.5rem; }
+        .form-group input { width: 100%; padding: 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; transition: all 0.2s; }
+        .form-group input:focus { border-color: #0f766e; box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15); }
+        
+        .login-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25); }
+        
+        .error-msg { background: #fee2e2; border: 1px solid #fca5a5; border-radius: 10px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 13px; color: #dc2626; display: none; text-align: left; }
+        
+        .test-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-size: 13px; color: #475569; text-align: left; line-height: 1.5; }
+        
+        /* Dashboard Ekranı */
+        .main-container { width: 100%; max-width: 450px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e0f2fe; overflow: hidden; display: none; }
+        .dash-header { padding: 1.5rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .user-info h2 { font-size: 18px; font-weight: 700; }
+        .user-info p { font-size: 12px; opacity: 0.85; margin-top: 2px; text-transform: uppercase; font-weight: 500; }
+        .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .logout-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        
+        .dash-body { padding: 1.5rem; }
+        .tabs { display: flex; background: #f1f5f9; padding: 0.35rem; border-radius: 12px; margin-bottom: 1.5rem; }
+        .tab-btn { flex: 1; padding: 0.65rem; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 9px; transition: all 0.2s; }
+        .tab-btn.active { background: white; color: #0f766e; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .summary-box { background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem; }
+        .summary-label { font-size: 12px; font-weight: 700; color: #047857; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .summary-number { font-size: 56px; font-weight: 800; color: #0f766e; line-height: 1; margin-bottom: 0.25rem; }
+        .summary-unit { font-size: 14px; color: #047857; font-weight: 600; text-transform: uppercase; }
+        
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-align: center; }
+        .info-card-label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .info-card-value { font-size: 18px; font-weight: 700; color: #0f766e; }
+        
+        /* WhatsApp İtiraz Bölümü */
+        .wa-section { text-align: center; padding: 1rem 0; }
+        .wa-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem; }
+        .wa-desc { font-size: 13px; color: #64748b; margin-bottom: 1.5rem; line-height: 1.5; }
+        .wa-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 1rem; background-color: #25d366; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; }
+        .wa-btn:hover { background-color: #20ba5a; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3); }
+    </style>
 </head>
 <body>
-<div id="app"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/react.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/react-dom.production.min.js"></script>
-<script>
-const { useState } = React;
-function HRPortal() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showError, setShowError] = useState(false);
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const employees = {
-    'burhan671819': { name: 'BURHAN BİLİKTÜ', title: 'KALİTE GÜVENCE & KONTROL TEKNİKERİ', totalLeave: 27.5, pazarIzinleri: 17, resmiTatil: 10.5, password: '181920' }
-  };
-  const handleLogin = () => {
-    const emp = employees[username.toLowerCase()];
-    if (emp && emp.password === password) {
-      setIsLoggedIn(true);
-      setShowError(false);
-    } else {
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
-    }
-  };
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUsername('');
-    setPassword('');
-    setActiveTab('dashboard');
-  };
-  const employee = employees[username.toLowerCase()];
-  if (!isLoggedIn) {
-    return React.createElement('div', { className: 'app' },
-      React.createElement('div', { className: 'login-screen' },
-        React.createElement('div', { className: 'login-card' },
-          React.createElement('div', { className: 'login-header' },
-            React.createElement('div', { className: 'logo-icon' }, '📋'),
-            React.createElement('h1', null, 'İzin Yönetim'),
-            React.createElement('p', null, 'HR Mobil Portal')
-          ),
-          showError && React.createElement('div', { className: 'error-msg show' }, '✗ Kullanıcı adı veya şifre yanlış'),
-          React.createElement('div', { className: 'form-group' },
-            React.createElement('label', null, 'Kullanıcı Adı'),
-            React.createElement('input', { type: 'text', value: username, onChange: (e) => setUsername(e.target.value), onKeyPress: (e) => e.key === 'Enter' && handleLogin(), placeholder: 'BURHAN671819' })
-          ),
-          React.createElement('div', { className: 'form-group' },
-            React.createElement('label', null, 'Şifre'),
-            React.createElement('input', { type: 'password', value: password, onChange: (e) => setPassword(e.target.value), onKeyPress: (e) => e.key === 'Enter' && handleLogin(), placeholder: '••••••' })
-          ),
-          React.createElement('button', { className: 'login-btn', onClick: handleLogin }, 'Giriş Yap'),
-          React.createElement('div', { className: 'test-info' }, '📊 Excel Verileriyle Giriş\n', React.createElement('strong', null, 'Kullanıcı:'), ' BURHAN671819\n', React.createElement('strong', null, 'Şifre:'), ' 181920')
-        )
-      )
-    );
-  }
-  return React.createElement('div', { className: 'app' },
-    React.createElement('div', { className: 'dashboard' },
-      React.createElement('div', { className: 'header' },
-        React.createElement('div', null,
-          React.createElement('h2', null, 'Hoşgeldiniz'),
-          React.createElement('p', null, employee.name)
-        ),
-        React.createElement('button', { className: 'logout-btn', onClick: handleLogout }, 'Çıkış Yap')
-      ),
-      React.createElement('div', { className: 'tabs' },
-        React.createElement('button', { className: `tab ${activeTab === 'dashboard' ? 'active' : ''}`, onClick: () => setActiveTab('dashboard') }, '📊 Özet'),
-        React.createElement('button', { className: `tab ${activeTab === 'details' ? 'active' : ''}`, onClick: () => setActiveTab('details') }, '📋 Detaylar')
-      ),
-      React.createElement('div', { className: 'content' },
-        activeTab === 'dashboard' && React.createElement(React.Fragment, null,
-          React.createElement('div', { className: 'summary' },
-            React.createElement('div', { className: 'summary-label' }, '✨ KALAN İZİN HAKKI'),
-            React.createElement('div', { className: 'summary-number' }, employee.totalLeave),
-            React.createElement('div', { className: 'summary-label', style: { fontSize: '12px', marginTop: '0.5rem' } }, 'gün')
-          ),
-          React.createElement('div', { className: 'card' },
-            React.createElement('div', { className: 'card-title' }, '📊 İzin Dağılımı'),
-            React.createElement('div', { className: 'info-grid' },
-              React.createElement('div', { className: 'info-card' },
-                React.createElement('div', { className: 'info-card-label' }, 'Pazar İzinleri'),
-                React.createElement('div', { className: 'info-card-value' }, employee.pazarIzinleri + ' gün')
-              ),
-              React.createElement('div', { className: 'info-card' },
-                React.createElement('div', { className: 'info-card-label' }, 'Resmi Tatil'),
-                React.createElement('div', { className: 'info-card-value' }, employee.resmiTatil + ' gün')
-              )
-            )
-          )
-        ),
-        activeTab === 'details' && React.createElement('div', { className: 'card' },
-          React.createElement('div', { className: 'card-title' }, '📞 İtiraz'),
-          React.createElement('button', { className: 'btn btn-primary', onClick: () => window.open('https://wa.me/905551234567?text=' + encodeURIComponent('İzin talebim hakkında iletişime geçmek istiyorum'), '_blank') }, '💬 WhatsApp')
-        )
-      )
-    )
-  );
-}
-ReactDOM.render(React.createElement(HRPortal), document.getElementById('app'));
-</script>
+
+    <div class="app" id="login-view">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-icon">📋</div>
+                <h1>İzin Yönetim Portalı</h1>
+                <p class="subtitle">HR Mobil Portal</p>
+            </div>
+            <div class="error-msg" id="error-box">✗ Kullanıcı adı veya şifre yanlış!</div>
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" placeholder="Örn: BURHAN671819">
+            </div>
+            <div class="form-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" placeholder="•••••">
+            </div>
+            <button class="login-btn" onclick="tryLogin()">Giriş Yap</button>
+            <div class="test-info">
+                📊 <strong>Excel Verileriyle Giriş:</strong><br>
+                <strong>Kullanıcı:</strong> BURHAN671819<br>
+                <strong>Şifre:</strong> 181920
+            </div>
+        </div>
+    </div>
+
+    <div class="app" id="dashboard-view">
+        <div class="main-container" id="main-container-box">
+            <div class="dash-header">
+                <div class="user-info">
+                    <h2 id="user-display-name">BURHAN BİLİKTÜ</h2>
+                    <p id="user-display-title">KALİTE GÜVENCE & KONTROL TEKNİKERİ</p>
+                </div>
+                <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+            </div>
+            <div class="dash-body">
+                <div class="tabs">
+                    <button class="tab-btn active" id="tab-dash" onclick="switchTab('dash')">📊 Özet</button>
+                    <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz & Destek</button>
+                </div>
+                
+                <div class="tab-content active" id="content-dash">
+                    <div class="summary-box">
+                        <div class="summary-label">✨ KALAN İZİN HAKKI</div>
+                        <div class="summary-number" id="user-leave">27.5</div>
+                        <div class="summary-unit">gün</div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <div class="info-card-label">Pazar İzinleri</div>
+                            <div class="info-card-value" id="user-sunday">17 gün</div>
+                        </div>
+                        <div class="info-grid-item info-card">
+                            <div class="info-card-label">Resmi Tatil</div>
+                            <div class="info-card-value" id="user-holiday">10.5 gün</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="content-details">
+                    <div class="wa-section">
+                        <h3 class="wa-title">İzin Bilgilerinizde Hata mı Var?</h3>
+                        <p class="wa-desc">Hesaplanan izin sürelerinizde bir eksiklik veya yanlışlık olduğunu düşünüyorsanız, insan kaynakları birimiyle doğrudan WhatsApp üzerinden iletişime geçebilirsiniz.</p>
+                        <a href="https://wa.me/905551234567?text=Merhaba%2C%20izin%20günlerimin%20incelenmesini%20talep%20ediyorum." target="_blank" class="wa-btn">
+                            💬 WhatsApp İtiraz Hattı
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Excel'den gelen güncel kullanıcı veritabanı
+        const employees = {
+            'burhan671819': {
+                name: 'BURHAN BİLİKTÜ',
+                title: 'KALİTE GÜVENCE & KONTROL TEKNİKERİ',
+                totalLeave: '27.5',
+                pazarIzinleri: '17',
+                resmiTatil: '10.5',
+                password: '181920'
+            }
+        };
+
+        function tryLogin() {
+            const userInp = document.getElementById('username').value.trim().toLowerCase();
+            const passInp = document.getElementById('password').value;
+            const errorBox = document.getElementById('error-box');
+
+            if (employees[userInp] && employees[userInp].password === passInp) {
+                errorBox.style.display = 'none';
+                const emp = employees[userInp];
+                
+                // Bilgileri ekrana basıyoruz
+                document.getElementById('user-display-name').innerText = emp.name;
+                document.getElementById('user-display-title').innerText = emp.title;
+                document.getElementById('user-leave').innerText = emp.totalLeave;
+                document.getElementById('user-sunday').innerText = emp.pazarIzinleri + ' gün';
+                document.getElementById('user-holiday').innerText = emp.resmiTatil + ' gün';
+                
+                // Görünümü değiştiriyoruz
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('dashboard-view').style.display = 'flex';
+                document.getElementById('main-container-box').style.display = 'block';
+            } else {
+                errorBox.style.display = 'block';
+                setTimeout(() => { errorBox.style.display = 'none'; }, 3500);
+            }
+        }
+
+        function logout() {
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('login-view').style.display = 'flex';
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('main-container-box').style.display = 'none';
+            switchTab('dash');
+        }
+
+        function switchTab(tab) {
+            const tabDash = document.getElementById('tab-dash');
+            const tabDetails = document.getElementById('tab-details');
+            const contentDash = document.getElementById('content-dash');
+            const contentDetails = document.getElementById('content-details');
+
+            if (tab === 'dash') {
+                tabDash.classList.add('active');
+                tabDetails.classList.remove('active');
+                contentDash.classList.add('active');
+                contentDetails.classList.remove('active');
+            } else {
+                tabDash.classList.remove('active');
+                tabDetails.classList.add('active');
+                contentDash.classList.remove('active');
+                contentDetails.classList.add('active');
+            }
+        }
+
+        // Enter tuşuyla giriş yapabilme özelliği
+        document.getElementById('password').addEventListener('keypress', function(e) { if (e.key === 'Enter') tryLogin(); });
+        document.getElementById('username').addEventListener('keypress', function(e) { if (e.key === 'Enter') tryLogin(); });
+    </script>
 </body>
 </html>
