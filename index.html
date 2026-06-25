@@ -2,26 +2,59 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim Portalı</title>
     <style>
-        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #0f766e; font-family: sans-serif; }
-        .card { background: white; padding: 30px; border-radius: 15px; width: 300px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-        button { width: 100%; padding: 10px; background: #0f766e; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
+        
+        /* Video arka planı her şeyi kapsasın */
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .container { 
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+            background: rgba(0,0,0,0.4); /* Videonun üzerine hafif bir karartma */
+        }
+        
+        .card { 
+            background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 20px;
+            width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
+        button { width: 100%; padding: 10px; background: #0f766e; color: white; border: none; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Giriş Yap</h2>
-        <input type="text" id="user" placeholder="Kullanıcı Adı">
-        <input type="password" id="pass" placeholder="Şifre">
-        <button onclick="check()">Giriş</button>
+
+    <!-- Videoyu doğrudan GitHub üzerinden çekiyoruz -->
+    <video autoplay muted loop playsinline id="myVideo">
+        <source src="https://raw.githubusercontent.com/MERT6776/izin-yonetim-portal/main/video.mp4.mp4" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <div class="card">
+            <h2>Giriş Yap</h2>
+            <input type="text" id="user" placeholder="Kullanıcı Adı">
+            <input type="password" id="pass" placeholder="Şifre">
+            <button onclick="check()">Giriş</button>
+        </div>
     </div>
+
     <script>
         function check() {
             if(document.getElementById('user').value == 'burhan671819' && document.getElementById('pass').value == '181920') {
                 alert('Giriş Başarılı!');
-            } else { alert('Hatalı!'); }
+            } else {
+                alert('Hatalı!');
+            }
         }
     </script>
 </body>
