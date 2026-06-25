@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; background-color: #1e293b; }
         
-        /* GİTHUB'DAN ÇEKİLEN MP4 ARKA PLAN VİDEOSU */
+        /* KESİN ÇALIŞAN VİDEO ARKA PLAN */
         .video-background {
             position: fixed;
             right: 0;
@@ -19,16 +19,14 @@
             height: auto;
             z-index: -1;
             object-fit: cover;
-            filter: brightness(0.50); /* Cam panelin öne çıkması için videoyu hafif karartır */
+            filter: brightness(0.50);
         }
 
         .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; position: relative; z-index: 1; }
         
-        /* Giriş Ekranı Kartı - Buzlu Cam Efekti */
         .login-card { 
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border-radius: 16px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
             padding: 2.5rem 2rem; 
@@ -44,69 +42,36 @@
         
         .form-group { text-align: left; margin-bottom: 1.25rem; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 0.5rem; }
-        .form-group input { width: 100%; padding: 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; transition: all 0.2s; background: rgba(255, 255, 255, 0.95); }
+        .form-group input { width: 100%; padding: 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; background: rgba(255, 255, 255, 0.95); }
         .form-group input:focus { border-color: #0f766e; box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15); }
         
-        .login-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .login-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
         .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25); }
         
         .error-msg { background: #fee2e2; border: 1px solid #fca5a5; border-radius: 10px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 13px; color: #dc2626; display: none; text-align: left; }
         
-        /* Dashboard Ekranı - Buzlu Cam Efekti */
-        .main-container { 
-            width: 100%; 
-            max-width: 450px; 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
-            border: 1px solid rgba(255, 255, 255, 0.4); 
-            overflow: hidden; 
-            display: none; 
-        }
+        .main-container { width: 100%; max-width: 450px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.4); overflow: hidden; display: none; }
         .dash-header { padding: 1.5rem; background: linear-gradient(135deg, rgba(15, 118, 110, 0.95) 0%, rgba(6, 182, 212, 0.95) 100%); color: white; display: flex; justify-content: space-between; align-items: center; }
-        .user-info h2 { font-size: 18px; font-weight: 700; }
-        .user-info p { font-size: 12px; opacity: 0.85; margin-top: 2px; text-transform: uppercase; font-weight: 500; }
-        .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .logout-btn:hover { background: rgba(255, 255, 255, 0.3); }
-        
+        .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
         .dash-body { padding: 1.5rem; }
         .tabs { display: flex; background: rgba(241, 245, 249, 0.8); padding: 0.35rem; border-radius: 12px; margin-bottom: 1.5rem; }
-        .tab-btn { flex: 1; padding: 0.65rem; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 9px; transition: all 0.2s; }
-        .tab-btn.active { background: white; color: #0f766e; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        
+        .tab-btn { flex: 1; padding: 0.65rem; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 9px; }
+        .tab-btn.active { background: white; color: #0f766e; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        
-        .summary-box { background: linear-gradient(135deg, rgba(240, 253, 244, 0.9) 0%, rgba(224, 242, 254, 0.9) 100%); border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem; }
-        .summary-label { font-size: 12px; font-weight: 700; color: #047857; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-        .summary-number { font-size: 56px; font-weight: 800; color: #0f766e; line-height: 1; margin-bottom: 0.25rem; }
-        .summary-unit { font-size: 14px; color: #047857; font-weight: 600; text-transform: uppercase; }
-        
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .summary-box { background: linear-gradient(135deg, rgba(240, 253, 244, 0.9) 0%, rgba(224, 242, 254, 0.9) 100%); border-radius: 16px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem; }
+        .summary-number { font-size: 56px; font-weight: 800; color: #0f766e; }
         .info-card { background: rgba(248, 250, 252, 0.9); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-align: center; }
-        .info-card-label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .info-card-value { font-size: 18px; font-weight: 700; color: #0f766e; }
-        
-        /* WhatsApp İtiraz Bölümü */
-        .wa-section { text-align: center; padding: 1rem 0; }
-        .wa-title { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem; }
-        .wa-desc { font-size: 13px; color: #64748b; margin-bottom: 1.5rem; line-height: 1.5; }
-        .wa-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 1rem; background-color: #25d366; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; }
-        .wa-btn:hover { background-color: #20ba5a; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3); }
+        .wa-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 1rem; background-color: #25d366; color: white; border: none; border-radius: 12px; font-weight: 600; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <!-- YOUTUBE YERİNE DOĞRUDAN GITHUB'DAN MP4 VİDEOSU ÇEKİLDİ -->
-    <!-- "playsinline" kodu videonun iPhone'larda siyah ekran vermesini engeller -->
-    <!-- Kaynak linki GitHub'daki dosyanıza göre ayarlandı -->
+    <!-- ÜCRETSİZ VE HIZLI VİDEO CDN -->
     <video autoplay muted loop playsinline class="video-background">
-        <source src="https://raw.githubusercontent.com/MERT6776/izin-yonetim-portal/main/video.mp4.mp4" type="video/mp4">
+        <source src="https://cdn.coverr.co/videos/coverr-construction-site-4648/1080p.mp4" type="video/mp4">
     </video>
 
-    <!-- GİRİŞ EKRANI -->
     <div class="app" id="login-view">
         <div class="login-card">
             <div class="login-header">
@@ -127,121 +92,47 @@
         </div>
     </div>
 
-    <!-- PANEL EKRANI -->
     <div class="app" id="dashboard-view">
         <div class="main-container" id="main-container-box">
             <div class="dash-header">
-                <div class="user-info">
-                    <h2 id="user-display-name">BURHAN BİLİKTÜ</h2>
-                    <p id="user-display-title">KALİTE GÜVENCE & KONTROL TEKNİKERİ</p>
-                </div>
+                <div><h2>BURHAN BİLİKTÜ</h2><p>KALİTE GÜVENCE & KONTROL TEKNİKERİ</p></div>
                 <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
             </div>
             <div class="dash-body">
                 <div class="tabs">
                     <button class="tab-btn active" id="tab-dash" onclick="switchTab('dash')">📊 Özet</button>
-                    <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz & Destek</button>
+                    <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz</button>
                 </div>
-                
-                <!-- Özet Sekmesi -->
                 <div class="tab-content active" id="content-dash">
                     <div class="summary-box">
                         <div class="summary-label">✨ KALAN İZİN HAKKI</div>
                         <div class="summary-number" id="user-leave">27.5</div>
-                        <div class="summary-unit">gün</div>
-                    </div>
-                    <div class="info-grid">
-                        <div class="info-card">
-                            <div class="info-card-label">Pazar İzinleri</div>
-                            <div class="info-card-value" id="user-sunday">17 gün</div>
-                        </div>
-                        <div class="info-grid-item info-card">
-                            <div class="info-card-label">Resmi Tatil</div>
-                            <div class="info-card-value" id="user-holiday">10.5 gün</div>
-                        </div>
+                        <div style="color:#047857">GÜN</div>
                     </div>
                 </div>
-                
-                <!-- İtiraz Sekmesi -->
                 <div class="tab-content" id="content-details">
-                    <div class="wa-section">
-                        <h3 class="wa-title">İzin Bilgilerinizde Hata mı Var?</h3>
-                        <p class="wa-desc">Hesaplanan izin sürelerinizde bir eksiklik veya yanlışlık olduğunu düşünüyorsanız, insan kaynakları birimiyle doğrudan WhatsApp üzerinden iletişime geçebilirsiniz.</p>
-                        <a href="https://wa.me/905459157444?text=Merhaba%2C%20izin%20günlerimin%20incelenmesini%20talep%20ediyorum." target="_blank" class="wa-btn">
-                            💬 WhatsApp İtiraz Hattı
-                        </a>
-                    </div>
+                    <a href="https://wa.me/905459157444" class="wa-btn">💬 WhatsApp İtiraz Hattı</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const employees = {
-            'burhan671819': {
-                name: 'BURHAN BİLİKTÜ',
-                title: 'KALİTE GÜVENCE & KONTROL TEKNİKERİ',
-                totalLeave: '27.5',
-                pazarIzinleri: '17',
-                resmiTatil: '10.5',
-                password: '181920'
-            }
-        };
-
+        const employees = { 'burhan671819': { password: '181920' } };
         function tryLogin() {
             const userInp = document.getElementById('username').value.trim().toLowerCase();
             const passInp = document.getElementById('password').value;
-            const errorBox = document.getElementById('error-box');
-
             if (employees[userInp] && employees[userInp].password === passInp) {
-                errorBox.style.display = 'none';
-                const emp = employees[userInp];
-                
-                document.getElementById('user-display-name').innerText = emp.name;
-                document.getElementById('user-display-title').innerText = emp.title;
-                document.getElementById('user-leave').innerText = emp.totalLeave;
-                document.getElementById('user-sunday').innerText = emp.pazarIzinleri + ' gün';
-                document.getElementById('user-holiday').innerText = emp.resmiTatil + ' gün';
-                
                 document.getElementById('login-view').style.display = 'none';
                 document.getElementById('dashboard-view').style.display = 'flex';
                 document.getElementById('main-container-box').style.display = 'block';
-            } else {
-                errorBox.style.display = 'block';
-                setTimeout(() => { errorBox.style.display = 'none'; }, 3500);
-            }
+            } else { document.getElementById('error-box').style.display = 'block'; }
         }
-
-        function logout() {
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('login-view').style.display = 'flex';
-            document.getElementById('dashboard-view').style.display = 'none';
-            document.getElementById('main-container-box').style.display = 'none';
-            switchTab('dash');
+        function logout() { location.reload(); }
+        function switchTab(t) {
+            document.getElementById('content-dash').className = t === 'dash' ? 'tab-content active' : 'tab-content';
+            document.getElementById('content-details').className = t === 'details' ? 'tab-content active' : 'tab-content';
         }
-
-        function switchTab(tab) {
-            const tabDash = document.getElementById('tab-dash');
-            const tabDetails = document.getElementById('tab-details');
-            const contentDash = document.getElementById('content-dash');
-            const contentDetails = document.getElementById('content-details');
-
-            if (tab === 'dash') {
-                tabDash.classList.add('active');
-                tabDetails.classList.remove('active');
-                contentDash.classList.add('active');
-                contentDetails.classList.remove('active');
-            } else {
-                tabDash.classList.remove('active');
-                tabDetails.classList.add('active');
-                contentDash.classList.remove('active');
-                contentDetails.classList.add('active');
-            }
-        }
-
-        document.getElementById('password').addEventListener('keypress', function(e) { if (e.key === 'Enter') tryLogin(); });
-        document.getElementById('username').addEventListener('keypress', function(e) { if (e.key === 'Enter') tryLogin(); });
     </script>
 </body>
 </html>
