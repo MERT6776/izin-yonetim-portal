@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim</title>
     <style>
-        body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
-        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); position: relative; z-index: 1; }
+        body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; touch-action: none; }
+        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
         input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; border-radius: 12px; color: white; box-sizing: border-box; }
         button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
         #portal-div { display: none; }
         
-        /* KAÇAN BUTON - DAHA AGRESİF */
+        /* HAYALET BUTON */
         #itiraz-btn { 
             position: absolute; 
             padding: 15px 30px;
@@ -20,8 +20,7 @@
             border-radius: 12px;
             color: white;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.01s; /* Işık hızında hareket */
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -38,12 +37,9 @@
         <h2 style="color: #94a3b8;">Kalan İzin</h2>
         <div style="font-size: 50px; font-weight: 800; color: #38bdf8; margin: 20px 0;">27.5 GÜN</div>
         
-        <!-- Buton alanını genişlettik -->
-        <div style="height: 100px;">
-            <button id="itiraz-btn" onmouseenter="kac(this)" ontouchstart="kac(this)">İtiraz Et</button>
-        </div>
+        <button id="itiraz-btn" onmouseover="kac()" ontouchstart="kac()">İtiraz Et</button>
         
-        <button style="background:#334155; margin-top:20px;" onclick="location.reload()">Çıkış Yap</button>
+        <button style="background:#334155; margin-top:100px;" onclick="location.reload()">Çıkış Yap</button>
     </div>
 
     <script>
@@ -55,8 +51,9 @@
             } else { alert('Hatalı!'); }
         }
 
-        function kac(btn) {
-            // Ekran sınırları içinde rastgele yer değiştir
+        function kac() {
+            var btn = document.getElementById('itiraz-btn');
+            // Ekran sınırları içinde tamamen rastgele ışınlanma
             var x = Math.random() * (window.innerWidth - 150);
             var y = Math.random() * (window.innerHeight - 80);
             btn.style.left = x + "px";
