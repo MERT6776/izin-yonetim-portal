@@ -3,58 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzin Yönetim Portalı</title>
+    <title>İzin Yönetim Portalı - Burhan Biliktü</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; background-color: #1e293b; }
         
-        /* Video arka planı her şeyi kapsasın */
-        #myVideo {
+        /* KESİN ÇALIŞAN VİDEO ARKA PLAN */
+        .video-background {
             position: fixed;
             right: 0;
             bottom: 0;
             min-width: 100%;
             min-height: 100%;
+            width: auto;
+            height: auto;
             z-index: -1;
             object-fit: cover;
+            filter: brightness(0.50);
         }
 
-        .container { 
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-            background: rgba(0,0,0,0.4); /* Videonun üzerine hafif bir karartma */
-        }
+        .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; position: relative; z-index: 1; }
         
-        .card { 
-            background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 20px;
-            width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .login-card { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px);
+            border-radius: 16px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+            padding: 2.5rem 2rem; 
+            width: 100%; 
+            max-width: 420px; 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            text-align: center; 
         }
+        .login-header { margin-bottom: 2rem; }
+        .logo-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 32px; color: white; }
+        h1 { font-size: 24px; font-weight: 700; color: #0f766e; margin-bottom: 0.25rem; }
+        .subtitle { color: #64748b; font-size: 14px; }
         
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
-        button { width: 100%; padding: 10px; background: #0f766e; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        .form-group { text-align: left; margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 0.5rem; }
+        .form-group input { width: 100%; padding: 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; background: rgba(255, 255, 255, 0.95); }
+        .form-group input:focus { border-color: #0f766e; box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15); }
+        
+        .login-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25); }
+        
+        .error-msg { background: #fee2e2; border: 1px solid #fca5a5; border-radius: 10px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 13px; color: #dc2626; display: none; text-align: left; }
+        
+        .main-container { width: 100%; max-width: 450px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); border: 1px solid rgba(255, 255, 255, 0.4); overflow: hidden; display: none; }
+        .dash-header { padding: 1.5rem; background: linear-gradient(135deg, rgba(15, 118, 110, 0.95) 0%, rgba(6, 182, 212, 0.95) 100%); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+        .dash-body { padding: 1.5rem; }
+        .tabs { display: flex; background: rgba(241, 245, 249, 0.8); padding: 0.35rem; border-radius: 12px; margin-bottom: 1.5rem; }
+        .tab-btn { flex: 1; padding: 0.65rem; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 9px; }
+        .tab-btn.active { background: white; color: #0f766e; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .summary-box { background: linear-gradient(135deg, rgba(240, 253, 244, 0.9) 0%, rgba(224, 242, 254, 0.9) 100%); border-radius: 16px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem; }
+        .summary-number { font-size: 56px; font-weight: 800; color: #0f766e; }
+        .info-card { background: rgba(248, 250, 252, 0.9); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-align: center; }
+        .wa-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 1rem; background-color: #25d366; color: white; border: none; border-radius: 12px; font-weight: 600; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <!-- Videoyu doğrudan GitHub üzerinden çekiyoruz -->
-    <video autoplay muted loop playsinline id="myVideo">
-        <source src="https://raw.githubusercontent.com/MERT6776/izin-yonetim-portal/main/video.mp4.mp4" type="video/mp4">
+    <!-- ÜCRETSİZ VE HIZLI VİDEO CDN -->
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="https://cdn.coverr.co/videos/coverr-construction-site-4648/1080p.mp4" type="video/mp4">
     </video>
 
-    <div class="container">
-        <div class="card">
-            <h2>Giriş Yap</h2>
-            <input type="text" id="user" placeholder="Kullanıcı Adı">
-            <input type="password" id="pass" placeholder="Şifre">
-            <button onclick="check()">Giriş</button>
+    <div class="app" id="login-view">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-icon">📋</div>
+                <h1>İzin Yönetim Portalı</h1>
+                <p class="subtitle">HR Mobil Portal</p>
+            </div>
+            <div class="error-msg" id="error-box">✗ Kullanıcı adı veya şifre yanlış!</div>
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password">
+            </div>
+            <button class="login-btn" onclick="tryLogin()">Giriş Yap</button>
+        </div>
+    </div>
+
+    <div class="app" id="dashboard-view">
+        <div class="main-container" id="main-container-box">
+            <div class="dash-header">
+                <div><h2>BURHAN BİLİKTÜ</h2><p>KALİTE GÜVENCE & KONTROL TEKNİKERİ</p></div>
+                <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+            </div>
+            <div class="dash-body">
+                <div class="tabs">
+                    <button class="tab-btn active" id="tab-dash" onclick="switchTab('dash')">📊 Özet</button>
+                    <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz</button>
+                </div>
+                <div class="tab-content active" id="content-dash">
+                    <div class="summary-box">
+                        <div class="summary-label">✨ KALAN İZİN HAKKI</div>
+                        <div class="summary-number" id="user-leave">27.5</div>
+                        <div style="color:#047857">GÜN</div>
+                    </div>
+                </div>
+                <div class="tab-content" id="content-details">
+                    <a href="https://wa.me/905459157444" class="wa-btn">💬 WhatsApp İtiraz Hattı</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        function check() {
-            if(document.getElementById('user').value == 'burhan671819' && document.getElementById('pass').value == '181920') {
-                alert('Giriş Başarılı!');
-            } else {
-                alert('Hatalı!');
-            }
+        const employees = { 'burhan671819': { password: '181920' } };
+        function tryLogin() {
+            const userInp = document.getElementById('username').value.trim().toLowerCase();
+            const passInp = document.getElementById('password').value;
+            if (employees[userInp] && employees[userInp].password === passInp) {
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('dashboard-view').style.display = 'flex';
+                document.getElementById('main-container-box').style.display = 'block';
+            } else { document.getElementById('error-box').style.display = 'block'; }
+        }
+        function logout() { location.reload(); }
+        function switchTab(t) {
+            document.getElementById('content-dash').className = t === 'dash' ? 'tab-content active' : 'tab-content';
+            document.getElementById('content-details').className = t === 'details' ? 'tab-content active' : 'tab-content';
         }
     </script>
 </body>
