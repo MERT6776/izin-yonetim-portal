@@ -5,40 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Portalı</title>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0f766e; font-family: sans-serif; }
-        .card { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 12px; background: #0f766e; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        #portal-div { display: none; }
+        body { margin: 0; padding: 20px; background: #0f766e; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 15px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
 
-    <div id="login-div" class="card">
-        <h2>Giriş</h2>
-        <input type="text" id="u" placeholder="Kullanıcı Adı">
-        <input type="password" id="p" placeholder="Şifre">
-        <button onclick="giris()">Giriş Yap</button>
+    <div class="card">
+        <h1>Hoşgeldin Burhan</h1>
+        <p style="font-size: 18px; color: #555;">Kalan İzin Hakkın:</p>
+        <h1 style="color:#0f766e; font-size: 40px; margin: 20px 0;">27.5 GÜN</h1>
+        <button style="width:100%; padding:15px; background:#25d366; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" 
+        onclick="window.location.href='https://wa.me/905459157444'">WhatsApp İtiraz</button>
     </div>
 
-    <div id="portal-div" class="card">
-        <h2>Hoşgeldin Burhan</h2>
-        <h1 style="color:#0f766e; margin: 20px 0;">27.5 GÜN</h1>
-        <button onclick="window.location.href='https://wa.me/905459157444'">WhatsApp İtiraz</button>
-    </div>
-
-    <script>
-        function giris() {
-            var u = document.getElementById('u').value.trim().toLowerCase();
-            var p = document.getElementById('pass').value.trim();
-            // Kullanıcı adı 'burhan', Şifre '181920'
-            if(u === 'burhan' && p === '181920') {
-                document.getElementById('login-div').style.display = 'none';
-                document.getElementById('portal-div').style.display = 'block';
-            } else {
-                alert('Hatalı giriş!');
-            }
-        }
-    </script>
 </body>
 </html>
