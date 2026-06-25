@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim</title>
     <style>
-        body { margin: 0; background: #0f172a; font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
-        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
+        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); position: relative; }
         input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; border-radius: 12px; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
         #portal-div { display: none; }
-        .izin-sayi { font-size: 60px; font-weight: 800; color: #38bdf8; margin: 10px 0; }
         
-        /* İTİRAZ BUTONU KAÇAN TASARIM */
+        /* KAÇAN BUTONUN YENİ HALİ */
         #itiraz-btn { 
-            position: absolute; /* Butonu serbest bıraktık */
-            width: auto; 
-            padding: 10px 20px; 
-            background: #ef4444; 
-            transition: 0.1s; 
+            position: fixed; /* Ekranın her yerinde gezebilir */
+            z-index: 999;
+            padding: 15px 30px;
+            background: #ef4444;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            touch-action: none; /* Mobilde dokunmayı engellemek için */
         }
     </style>
 </head>
@@ -33,14 +37,12 @@
 
     <div id="portal-div" class="card">
         <h2 style="color: #94a3b8;">Kalan İzin</h2>
-        <div class="izin-sayi">27.5</div>
-        <p style="color: #94a3b8;">GÜN</p>
+        <div style="font-size: 50px; font-weight: 800; color: #38bdf8; margin: 20px 0;">27.5 GÜN</div>
         
-        <div style="height: 60px; position: relative;">
-            <button id="itiraz-btn" onmouseover="kac(this)" onclick="kac(this)">İtiraz Et</button>
-        </div>
+        <!-- Buton buraya yerleşiyor -->
+        <button id="itiraz-btn" onmouseover="kac(this)" ontouchstart="kac(this)">İtiraz Et</button>
         
-        <button class="logout-btn" style="background:#334155; margin-top:50px;" onclick="location.reload()">Çıkış Yap</button>
+        <button style="background:#334155; margin-top:80px;" onclick="location.reload()">Çıkış Yap</button>
     </div>
 
     <script>
@@ -52,10 +54,10 @@
             } else { alert('Hatalı!'); }
         }
 
-        // BUTON KAÇIRMA MANTIĞI
         function kac(btn) {
-            var x = Math.random() * (window.innerWidth - 100);
-            var y = Math.random() * (window.innerHeight - 50);
+            // Butonu ekranın rastgele bir noktasına ışınla
+            var x = Math.random() * (window.innerWidth - 120);
+            var y = Math.random() * (window.innerHeight - 60);
             btn.style.left = x + "px";
             btn.style.top = y + "px";
         }
