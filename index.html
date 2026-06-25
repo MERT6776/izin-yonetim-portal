@@ -6,11 +6,37 @@
     <title>İzin Yönetim Portalı - Burhan Biliktü</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%); color: #1e293b; }
-        .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; }
         
-        /* Giriş Ekranı Kartı */
-        .login-card { background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 2.5rem 2rem; width: 100%; max-width: 420px; border: 1px solid #e0f2fe; text-align: center; }
+        /* ARKA PLAN VİDEOSU */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.65); /* Video çok parlak olmasın, kutu öne çıksın diye hafif karartıldı */
+        }
+
+        .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; position: relative; z-index: 1; }
+        
+        /* Giriş Ekranı Kartı - Buzlu Cam Efekti (Glassmorphism) */
+        .login-card { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+            padding: 2.5rem 2rem; 
+            width: 100%; 
+            max-width: 420px; 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            text-align: center; 
+        }
         .login-header { margin-bottom: 2rem; }
         .logo-icon { width: 64px; height: 64px; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 32px; color: white; }
         h1 { font-size: 24px; font-weight: 700; color: #0f766e; margin-bottom: 0.25rem; }
@@ -18,7 +44,7 @@
         
         .form-group { text-align: left; margin-bottom: 1.25rem; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 0.5rem; }
-        .form-group input { width: 100%; padding: 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; transition: all 0.2s; }
+        .form-group input { width: 100%; padding: 0.85rem; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; transition: all 0.2s; background: rgba(255, 255, 255, 0.95); }
         .form-group input:focus { border-color: #0f766e; box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15); }
         
         .login-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
@@ -26,31 +52,40 @@
         
         .error-msg { background: #fee2e2; border: 1px solid #fca5a5; border-radius: 10px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 13px; color: #dc2626; display: none; text-align: left; }
         
-        .test-info { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-size: 13px; color: #475569; text-align: left; line-height: 1.5; }
-        
-        /* Dashboard Ekranı */
-        .main-container { width: 100%; max-width: 450px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e0f2fe; overflow: hidden; display: none; }
-        .dash-header { padding: 1.5rem; background: linear-gradient(135deg, #0f766e 0%, #06b6d4 100%); color: white; display: flex; justify-content: space-between; align-items: center; }
+        /* Dashboard Ekranı - Buzlu Cam Efekti */
+        .main-container { 
+            width: 100%; 
+            max-width: 450px; 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            overflow: hidden; 
+            display: none; 
+        }
+        .dash-header { padding: 1.5rem; background: linear-gradient(135deg, rgba(15, 118, 110, 0.95) 0%, rgba(6, 182, 212, 0.95) 100%); color: white; display: flex; justify-content: space-between; align-items: center; }
         .user-info h2 { font-size: 18px; font-weight: 700; }
         .user-info p { font-size: 12px; opacity: 0.85; margin-top: 2px; text-transform: uppercase; font-weight: 500; }
         .logout-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
         .logout-btn:hover { background: rgba(255, 255, 255, 0.3); }
         
         .dash-body { padding: 1.5rem; }
-        .tabs { display: flex; background: #f1f5f9; padding: 0.35rem; border-radius: 12px; margin-bottom: 1.5rem; }
+        .tabs { display: flex; background: rgba(241, 245, 249, 0.8); padding: 0.35rem; border-radius: 12px; margin-bottom: 1.5rem; }
         .tab-btn { flex: 1; padding: 0.65rem; border: none; background: transparent; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; border-radius: 9px; transition: all 0.2s; }
         .tab-btn.active { background: white; color: #0f766e; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        .summary-box { background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem; }
+        .summary-box { background: linear-gradient(135deg, rgba(240, 253, 244, 0.9) 0%, rgba(224, 242, 254, 0.9) 100%); border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem; }
         .summary-label { font-size: 12px; font-weight: 700; color: #047857; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
         .summary-number { font-size: 56px; font-weight: 800; color: #0f766e; line-height: 1; margin-bottom: 0.25rem; }
         .summary-unit { font-size: 14px; color: #047857; font-weight: 600; text-transform: uppercase; }
         
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-align: center; }
+        .info-card { background: rgba(248, 250, 252, 0.9); border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-align: center; }
         .info-card-label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; margin-bottom: 0.5rem; }
         .info-card-value { font-size: 18px; font-weight: 700; color: #0f766e; }
         
@@ -64,6 +99,12 @@
 </head>
 <body>
 
+    <!-- ARKA PLAN VİDEOSU -->
+    <video autoplay muted loop id="bg-video" playsinline>
+        <source src="https://cdn.pixabay.com/video/2019/04/24/23011-332483398_tiny.mp4" type="video/mp4">
+    </video>
+
+    <!-- GİRİŞ EKRANI -->
     <div class="app" id="login-view">
         <div class="login-card">
             <div class="login-header">
@@ -74,21 +115,17 @@
             <div class="error-msg" id="error-box">✗ Kullanıcı adı veya şifre yanlış!</div>
             <div class="form-group">
                 <label for="username">Kullanıcı Adı</label>
-                <input type="text" id="username" placeholder="Örn: BURHAN671819">
+                <input type="text" id="username">
             </div>
             <div class="form-group">
                 <label for="password">Şifre</label>
-                <input type="password" id="password" placeholder="•••••">
+                <input type="password" id="password">
             </div>
             <button class="login-btn" onclick="tryLogin()">Giriş Yap</button>
-            <div class="test-info">
-                📊 <strong>Excel Verileriyle Giriş:</strong><br>
-                <strong>Kullanıcı:</strong> BURHAN671819<br>
-                <strong>Şifre:</strong> 181920
-            </div>
         </div>
     </div>
 
+    <!-- PANEL EKRANI -->
     <div class="app" id="dashboard-view">
         <div class="main-container" id="main-container-box">
             <div class="dash-header">
@@ -104,6 +141,7 @@
                     <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz & Destek</button>
                 </div>
                 
+                <!-- Özet Sekmesi -->
                 <div class="tab-content active" id="content-dash">
                     <div class="summary-box">
                         <div class="summary-label">✨ KALAN İZİN HAKKI</div>
@@ -122,11 +160,13 @@
                     </div>
                 </div>
                 
+                <!-- İtiraz Sekmesi -->
                 <div class="tab-content" id="content-details">
                     <div class="wa-section">
                         <h3 class="wa-title">İzin Bilgilerinizde Hata mı Var?</h3>
                         <p class="wa-desc">Hesaplanan izin sürelerinizde bir eksiklik veya yanlışlık olduğunu düşünüyorsanız, insan kaynakları birimiyle doğrudan WhatsApp üzerinden iletişime geçebilirsiniz.</p>
-                        <a href="https://wa.me/905551234567?text=Merhaba%2C%20izin%20günlerimin%20incelenmesini%20talep%20ediyorum." target="_blank" class="wa-btn">
+                        <!-- WhatsApp Linki Yeni Numara ile Güncellendi -->
+                        <a href="https://wa.me/905459157444?text=Merhaba%2C%20izin%20günlerimin%20incelenmesini%20talep%20ediyorum." target="_blank" class="wa-btn">
                             💬 WhatsApp İtiraz Hattı
                         </a>
                     </div>
