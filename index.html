@@ -6,20 +6,29 @@
     <title>İzin Yönetim Portalı - Burhan Biliktü</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; }
+        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; background: #000; }
         
-        /* ARKA PLAN VİDEOSU */
-        #bg-video {
+        /* YOUTUBE ARKA PLAN VİDEOSU */
+        #bg-video-container {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
-            object-fit: cover;
-            filter: brightness(0.65); /* Video çok parlak olmasın, kutu öne çıksın diye hafif karartıldı */
+            overflow: hidden;
+            pointer-events: none; /* Videoya yanlışlıkla tıklanmasını engeller */
+        }
+        #bg-video-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 Tam Ekran Formatı */
+            min-height: 100vh;
+            min-width: 177.77vh; 
+            transform: translate(-50%, -50%);
+            filter: brightness(0.60); /* Öndeki beyaz cam panelin şık durması için videoyu hafif karartır */
         }
 
         .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; position: relative; z-index: 1; }
@@ -99,12 +108,10 @@
 </head>
 <body>
 
-    <!-- ARKA PLAN VİDEOSU -->
-    <video autoplay muted loop id="bg-video" playsinline>
-        <source src="https://cdn.pixabay.com/video/2019/04/24/23011-332483398_tiny.mp4" type="video/mp4">
-    </video>
+    <div id="bg-video-container">
+        <div id="yt-player"></div>
+    </div>
 
-    <!-- GİRİŞ EKRANI -->
     <div class="app" id="login-view">
         <div class="login-card">
             <div class="login-header">
@@ -125,7 +132,6 @@
         </div>
     </div>
 
-    <!-- PANEL EKRANI -->
     <div class="app" id="dashboard-view">
         <div class="main-container" id="main-container-box">
             <div class="dash-header">
@@ -141,7 +147,6 @@
                     <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz & Destek</button>
                 </div>
                 
-                <!-- Özet Sekmesi -->
                 <div class="tab-content active" id="content-dash">
                     <div class="summary-box">
                         <div class="summary-label">✨ KALAN İZİN HAKKI</div>
@@ -160,12 +165,10 @@
                     </div>
                 </div>
                 
-                <!-- İtiraz Sekmesi -->
                 <div class="tab-content" id="content-details">
                     <div class="wa-section">
                         <h3 class="wa-title">İzin Bilgilerinizde Hata mı Var?</h3>
                         <p class="wa-desc">Hesaplanan izin sürelerinizde bir eksiklik veya yanlışlık olduğunu düşünüyorsanız, insan kaynakları birimiyle doğrudan WhatsApp üzerinden iletişime geçebilirsiniz.</p>
-                        <!-- WhatsApp Linki Yeni Numara ile Güncellendi -->
                         <a href="https://wa.me/905459157444?text=Merhaba%2C%20izin%20günlerimin%20incelenmesini%20talep%20ediyorum." target="_blank" class="wa-btn">
                             💬 WhatsApp İtiraz Hattı
                         </a>
@@ -175,7 +178,40 @@
         </div>
     </div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        // YOUTUBE VİDEO DÖNGÜSÜ (İlk 7 Saniye)
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                videoId: 'DFVMjFsjtQw',
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1, /* Arka plan videoları mecburen sessiz başlamalıdır */
+                    'controls': 0,
+                    'disablekb': 1,
+                    'modestbranding': 1,
+                    'playsinline': 1,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'iv_load_policy': 3
+                },
+                events: {
+                    'onReady': function(event) {
+                        event.target.mute();
+                        event.target.playVideo();
+                        
+                        // Her 100 milisaniyede bir zamanı kontrol et, 7 saniyeye gelince başa sar
+                        setInterval(function() {
+                            if (player.getCurrentTime() >= 7) {
+                                player.seekTo(0);
+                            }
+                        }, 100);
+                    }
+                }
+            });
+        }
+
         // Excel'den gelen güncel kullanıcı veritabanı
         const employees = {
             'burhan671819': {
