@@ -6,20 +6,20 @@
     <title>İzin Yönetim Portalı - Burhan Biliktü</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; background: #000; }
+        html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; overflow-x: hidden; background-color: #1e293b; }
         
-        /* YOUTUBE ARKA PLAN VİDEOSU */
-        #bg-video-container {
+        /* YOUTUBE ARKA PLAN VİDEOSU (GÜNCELLENDİ) */
+        .video-background {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
             overflow: hidden;
-            pointer-events: none; /* Videoya yanlışlıkla tıklanmasını engeller */
+            pointer-events: none; /* Videoya tıklanmasını engeller */
         }
-        #bg-video-container iframe {
+        .video-background iframe {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -28,12 +28,12 @@
             min-height: 100vh;
             min-width: 177.77vh; 
             transform: translate(-50%, -50%);
-            filter: brightness(0.60); /* Öndeki beyaz cam panelin şık durması için videoyu hafif karartır */
+            filter: brightness(0.55); /* Öndeki beyaz cam panelin şık durması için videoyu karartır */
         }
 
         .app { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; position: relative; z-index: 1; }
         
-        /* Giriş Ekranı Kartı - Buzlu Cam Efekti (Glassmorphism) */
+        /* Giriş Ekranı Kartı - Buzlu Cam Efekti */
         .login-card { 
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(15px);
@@ -108,10 +108,14 @@
 </head>
 <body>
 
-    <div id="bg-video-container">
-        <div id="yt-player"></div>
+    <!-- YOUTUBE VİDEO KONTEYNERİ (SAF HTML YÖNTEMİ) -->
+    <!-- start=0 ve end=7 parametreleri sayesinde sadece ilk 7 saniye sürekli tekrarlar -->
+    <div class="video-background">
+        <iframe src="https://www.youtube.com/embed/DFVMjFsjtQw?autoplay=1&mute=1&controls=0&disablekb=1&loop=1&playlist=DFVMjFsjtQw&playsinline=1&start=0&end=7" 
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
+    <!-- GİRİŞ EKRANI -->
     <div class="app" id="login-view">
         <div class="login-card">
             <div class="login-header">
@@ -132,6 +136,7 @@
         </div>
     </div>
 
+    <!-- PANEL EKRANI -->
     <div class="app" id="dashboard-view">
         <div class="main-container" id="main-container-box">
             <div class="dash-header">
@@ -147,6 +152,7 @@
                     <button class="tab-btn" id="tab-details" onclick="switchTab('details')">📞 İtiraz & Destek</button>
                 </div>
                 
+                <!-- Özet Sekmesi -->
                 <div class="tab-content active" id="content-dash">
                     <div class="summary-box">
                         <div class="summary-label">✨ KALAN İZİN HAKKI</div>
@@ -165,6 +171,7 @@
                     </div>
                 </div>
                 
+                <!-- İtiraz Sekmesi -->
                 <div class="tab-content" id="content-details">
                     <div class="wa-section">
                         <h3 class="wa-title">İzin Bilgilerinizde Hata mı Var?</h3>
@@ -178,40 +185,7 @@
         </div>
     </div>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // YOUTUBE VİDEO DÖNGÜSÜ (İlk 7 Saniye)
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                videoId: 'DFVMjFsjtQw',
-                playerVars: {
-                    'autoplay': 1,
-                    'mute': 1, /* Arka plan videoları mecburen sessiz başlamalıdır */
-                    'controls': 0,
-                    'disablekb': 1,
-                    'modestbranding': 1,
-                    'playsinline': 1,
-                    'rel': 0,
-                    'showinfo': 0,
-                    'iv_load_policy': 3
-                },
-                events: {
-                    'onReady': function(event) {
-                        event.target.mute();
-                        event.target.playVideo();
-                        
-                        // Her 100 milisaniyede bir zamanı kontrol et, 7 saniyeye gelince başa sar
-                        setInterval(function() {
-                            if (player.getCurrentTime() >= 7) {
-                                player.seekTo(0);
-                            }
-                        }, 100);
-                    }
-                }
-            });
-        }
-
         // Excel'den gelen güncel kullanıcı veritabanı
         const employees = {
             'burhan671819': {
@@ -233,14 +207,12 @@
                 errorBox.style.display = 'none';
                 const emp = employees[userInp];
                 
-                // Bilgileri ekrana basıyoruz
                 document.getElementById('user-display-name').innerText = emp.name;
                 document.getElementById('user-display-title').innerText = emp.title;
                 document.getElementById('user-leave').innerText = emp.totalLeave;
                 document.getElementById('user-sunday').innerText = emp.pazarIzinleri + ' gün';
                 document.getElementById('user-holiday').innerText = emp.resmiTatil + ' gün';
                 
-                // Görünümü değiştiriyoruz
                 document.getElementById('login-view').style.display = 'none';
                 document.getElementById('dashboard-view').style.display = 'flex';
                 document.getElementById('main-container-box').style.display = 'block';
@@ -278,7 +250,6 @@
             }
         }
 
-        // Enter tuşuyla giriş yapabilme özelliği
         document.getElementById('password').addEventListener('keypress', function(e) { if (e.key === 'Enter') tryLogin(); });
         document.getElementById('username').addEventListener('keypress', function(e) { if (e.key === 'Enter') tryLogin(); });
     </script>
