@@ -5,35 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim Portalı</title>
     <style>
-        /* Tam Ekran Türk Bayrağı Arka Plan */
         body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; overflow: hidden; }
         .bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg') no-repeat center center fixed;
-            background-size: cover;
-            filter: brightness(0.6);
-            z-index: -1;
+            background-size: cover; filter: brightness(0.5); z-index: -1;
         }
-
         .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .card { 
-            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px; 
-            width: 320px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .card { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px; width: 320px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #c60c30; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button { width: 100%; padding: 12px; background: #c60c30; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        #portal-view { display: none; }
+        .data-box { font-size: 20px; margin-top: 20px; color: #333; }
     </style>
 </head>
 <body>
 
     <div class="bg"></div>
 
-    <div class="container">
+    <div class="container" id="login-view">
         <div class="card">
-            <h2>İzin Portalı</h2>
+            <h2>Giriş Yap</h2>
             <input type="text" id="user" placeholder="Kullanıcı Adı">
             <input type="password" id="pass" placeholder="Şifre">
             <button onclick="check()">Giriş Yap</button>
+        </div>
+    </div>
+
+    <div class="container" id="portal-view">
+        <div class="card">
+            <h2>Hoşgeldin Burhan</h2>
+            <div class="data-box">
+                <p>Kalan İzin Hakkın:</p>
+                <h1 style="color:#c60c30;">27.5 Gün</h1>
+            </div>
+            <button style="margin-top:20px; background:#25d366;" onclick="window.open('https://wa.me/905459157444')">WhatsApp Destek</button>
         </div>
     </div>
 
@@ -43,8 +49,8 @@
             var p = document.getElementById('pass').value.trim();
             
             if(u === 'burhan671819' && p === '181920') {
-                alert('Giriş Başarılı!');
-                // Buraya giriş sonrası yönlendirme ekleyebiliriz
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('portal-view').style.display = 'flex';
             } else {
                 alert('Hatalı kullanıcı adı veya şifre!');
             }
