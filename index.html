@@ -5,36 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim</title>
     <style>
-        :root {
-            --primary: #0f766e;
-            --accent: #c60c30;
-            --glass: rgba(255, 255, 255, 0.95);
-        }
-        body { 
-            margin: 0; display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; background: linear-gradient(135deg, #0f766e, #06b6d4);
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .card { 
-            background: var(--glass); padding: 40px; border-radius: 25px; 
-            width: 90%; max-width: 350px; text-align: center; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.3);
-        }
-        h2 { color: #333; margin-bottom: 20px; }
-        input { 
-            width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #e2e8f0; 
-            border-radius: 12px; box-sizing: border-box; font-size: 16px; transition: 0.3s;
-        }
-        input:focus { border-color: var(--primary); outline: none; }
-        button { 
-            width: 100%; padding: 15px; background: var(--primary); color: white; 
-            border: none; border-radius: 12px; cursor: pointer; font-size: 16px; 
-            font-weight: 600; transition: transform 0.2s, background 0.3s;
-        }
-        button:active { transform: scale(0.98); }
-        .logout-btn { background: var(--accent); margin-top: 15px; }
+        body { margin: 0; background: #0f172a; font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
+        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; border-radius: 12px; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         #portal-div { display: none; }
-        .izin-badge { font-size: 50px; font-weight: 800; color: var(--primary); margin: 20px 0; }
+        .izin-sayi { font-size: 60px; font-weight: 800; color: #38bdf8; margin: 10px 0; }
+        
+        /* İTİRAZ BUTONU KAÇAN TASARIM */
+        #itiraz-btn { 
+            position: absolute; /* Butonu serbest bıraktık */
+            width: auto; 
+            padding: 10px 20px; 
+            background: #ef4444; 
+            transition: 0.1s; 
+        }
     </style>
 </head>
 <body>
@@ -47,26 +32,32 @@
     </div>
 
     <div id="portal-div" class="card">
-        <h2 style="font-size: 1.2rem;">Hoşgeldin, Burhan</h2>
-        <p style="color: #666;">Kalan İzin Hakkın</p>
-        <div class="izin-badge">27.5</div>
-        <p>GÜN</p>
-        <button onclick="window.location.href='https://wa.me/905459157444'">💬 WhatsApp İtiraz</button>
-        <button class="logout-btn" onclick="cikis()">Çıkış Yap</button>
+        <h2 style="color: #94a3b8;">Kalan İzin</h2>
+        <div class="izin-sayi">27.5</div>
+        <p style="color: #94a3b8;">GÜN</p>
+        
+        <div style="height: 60px; position: relative;">
+            <button id="itiraz-btn" onmouseover="kac(this)" onclick="kac(this)">İtiraz Et</button>
+        </div>
+        
+        <button class="logout-btn" style="background:#334155; margin-top:50px;" onclick="location.reload()">Çıkış Yap</button>
     </div>
 
     <script>
         function giris() {
-            var u = document.getElementById('u').value.trim().toLowerCase();
-            var p = document.getElementById('p').value.trim();
-            if(u === 'burhan' && p === '181920') {
+            if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
+               document.getElementById('p').value.trim() === '181920') {
                 document.getElementById('login-div').style.display = 'none';
                 document.getElementById('portal-div').style.display = 'block';
-            } else { alert('Hatalı giriş!'); }
+            } else { alert('Hatalı!'); }
         }
-        function cikis() {
-            document.getElementById('portal-div').style.display = 'none';
-            document.getElementById('login-div').style.display = 'block';
+
+        // BUTON KAÇIRMA MANTIĞI
+        function kac(btn) {
+            var x = Math.random() * (window.innerWidth - 100);
+            var y = Math.random() * (window.innerHeight - 50);
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
         }
     </script>
 </body>
