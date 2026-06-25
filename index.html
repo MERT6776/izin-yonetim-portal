@@ -5,19 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Portalı</title>
     <style>
-        body { margin: 0; padding: 20px; background: #0f766e; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .card { background: white; padding: 30px; border-radius: 15px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        body { margin: 0; padding: 0; background: #0f766e; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .card { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        input { width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 15px; background: #0f766e; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .logout-btn { background: #c60c30; margin-top: 20px; }
+        #portal-div { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>Hoşgeldin Burhan</h1>
-        <p style="font-size: 18px; color: #555;">Kalan İzin Hakkın:</p>
-        <h1 style="color:#0f766e; font-size: 40px; margin: 20px 0;">27.5 GÜN</h1>
-        <button style="width:100%; padding:15px; background:#25d366; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" 
-        onclick="window.location.href='https://wa.me/905459157444'">WhatsApp İtiraz</button>
+    <div id="login-div" class="card">
+        <h2>İzin Yönetim</h2>
+        <input type="text" id="u" placeholder="Kullanıcı Adı">
+        <input type="password" id="p" placeholder="Şifre">
+        <button onclick="giris()">Giriş Yap</button>
     </div>
 
+    <div id="portal-div" class="card">
+        <h2 style="color:#0f766e;">Burhan Biliktü</h2>
+        <p>Kalan İzin Hakkın:</p>
+        <h1 style="font-size: 48px; color: #0f766e; margin: 20px 0;">27.5 GÜN</h1>
+        <button onclick="window.location.href='https://wa.me/905459157444'">💬 WhatsApp İtiraz</button>
+        <button class="logout-btn" onclick="cikis()">Çıkış Yap</button>
+    </div>
+
+    <script>
+        function giris() {
+            var u = document.getElementById('u').value.trim().toLowerCase();
+            var p = document.getElementById('p').value.trim();
+            if(u === 'burhan' && p === '181920') {
+                document.getElementById('login-div').style.display = 'none';
+                document.getElementById('portal-div').style.display = 'block';
+            } else {
+                alert('Hatalı giriş!');
+            }
+        }
+        function cikis() {
+            document.getElementById('portal-div').style.display = 'none';
+            document.getElementById('login-div').style.display = 'block';
+            document.getElementById('u').value = '';
+            document.getElementById('p').value = '';
+        }
+    </script>
 </body>
 </html>
