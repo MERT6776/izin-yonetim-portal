@@ -5,46 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim Portalı</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         
-        /* Video arka planı her şeyi kapsasın */
-        #myVideo {
+        /* GÖRSEL ARKA PLAN (VİDEO YERİNE GARANTİ ÇÖZÜM) */
+        .bg-img {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            filter: brightness(0.5); /* Şık bir karartma */
             z-index: -1;
-            object-fit: cover;
         }
 
-        .container { 
-            display: flex; justify-content: center; align-items: center; height: 100vh;
-            background: rgba(0,0,0,0.4); /* Videonun üzerine hafif bir karartma */
-        }
+        .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
         
         .card { 
-            background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 20px;
-            width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.9); padding: 2.5rem; border-radius: 20px;
+            width: 350px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
         
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
-        button { width: 100%; padding: 10px; background: #0f766e; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        button { width: 100%; padding: 12px; background: #0f766e; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- Videoyu doğrudan GitHub üzerinden çekiyoruz -->
-    <video autoplay muted loop playsinline id="myVideo">
-        <source src="https://raw.githubusercontent.com/MERT6776/izin-yonetim-portal/main/video.mp4.mp4" type="video/mp4">
-    </video>
+    <div class="bg-img"></div>
 
     <div class="container">
         <div class="card">
             <h2>Giriş Yap</h2>
             <input type="text" id="user" placeholder="Kullanıcı Adı">
             <input type="password" id="pass" placeholder="Şifre">
-            <button onclick="check()">Giriş</button>
+            <button onclick="check()">Giriş Yap</button>
         </div>
     </div>
 
@@ -53,7 +47,7 @@
             if(document.getElementById('user').value == 'burhan671819' && document.getElementById('pass').value == '181920') {
                 alert('Giriş Başarılı!');
             } else {
-                alert('Hatalı!');
+                alert('Hatalı giriş!');
             }
         }
     </script>
