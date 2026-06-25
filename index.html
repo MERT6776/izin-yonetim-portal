@@ -13,7 +13,7 @@
         
         /* HAYALET BUTON */
         #itiraz-btn { 
-            position: absolute; 
+            position: fixed; 
             padding: 15px 30px;
             background: #ef4444;
             border: none;
@@ -21,6 +21,9 @@
             color: white;
             font-weight: bold;
             pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.1s ease-out;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -37,28 +40,50 @@
         <h2 style="color: #94a3b8;">Kalan İzin</h2>
         <div style="font-size: 50px; font-weight: 800; color: #38bdf8; margin: 20px 0;">27.5 GÜN</div>
         
-        <button id="itiraz-btn" onmouseover="kac()" ontouchstart="kac()">İtiraz Et</button>
+        <button id="itiraz-btn">İtiraz Et</button>
         
         <button style="background:#334155; margin-top:100px;" onclick="location.reload()">Çıkış Yap</button>
     </div>
 
     <script>
+        const btn = document.getElementById('itiraz-btn');
+        
         function giris() {
             if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
                document.getElementById('p').value.trim() === '181920') {
                 document.getElementById('login-div').style.display = 'none';
                 document.getElementById('portal-div').style.display = 'block';
+                kac();
             } else { alert('Hatalı!'); }
         }
 
         function kac() {
-            var btn = document.getElementById('itiraz-btn');
-            // Ekran sınırları içinde tamamen rastgele ışınlanma
-            var x = Math.random() * (window.innerWidth - 150);
-            var y = Math.random() * (window.innerHeight - 80);
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+            const x = Math.random() * (window.innerWidth - btnWidth);
+            const y = Math.random() * (window.innerHeight - btnHeight);
             btn.style.left = x + "px";
             btn.style.top = y + "px";
         }
+
+        btn.addEventListener('mouseover', kac);
+        btn.addEventListener('mousedown', kac);
+        btn.addEventListener('click', kac);
+        btn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            kac();
+        });
+        
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const distance = Math.sqrt(
+                Math.pow(e.clientX - rect.left - rect.width/2, 2) + 
+                Math.pow(e.clientY - rect.top - rect.height/2, 2)
+            );
+            if(distance < 80) {
+                kac();
+            }
+        });
     </script>
 </body>
 </html>
