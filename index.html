@@ -2,15 +2,15 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Hata Veriyor</title>
+    <title>Sistem Uyarısı</title>
     <style>
         body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
-        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 300px; text-align: center; position: relative; }
-        input { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; border: none; }
-        .btn-grup { position: relative; height: 100px; margin-top: 20px; }
-        .hareketli { position: absolute; padding: 10px 20px; cursor: pointer; border: none; border-radius: 8px; font-weight: bold; transition: 0.1s; }
-        #evet { background: #22c55e; color: white; left: 0; }
-        #hayir { background: #ef4444; color: white; right: 0; }
+        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 350px; text-align: center; position: relative; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #475569; background: #334155; color: white; box-sizing: border-box; }
+        .btn-grup { position: relative; height: 120px; margin-top: 20px; }
+        .hareketli { position: absolute; padding: 12px 25px; cursor: pointer; border: none; border-radius: 8px; font-weight: bold; transition: 0.1s; color: white; }
+        #evet { background: #0ea5e9; left: 0; }
+        #hayir { background: #ef4444; right: 0; }
         #portal-div { display: none; }
     </style>
 </head>
@@ -20,33 +20,37 @@
         <h2>Sistem Girişi</h2>
         <input type="text" id="u" placeholder="Kullanıcı Adı">
         <input type="password" id="p" placeholder="Şifre">
-        <button onclick="giris()" style="width:100%; padding:10px; margin-top:10px;">Giriş</button>
+        <button onclick="giris()" style="width:100%; padding:12px; margin-top:10px; background:#0ea5e9; border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer;">Giriş Yap</button>
     </div>
 
     <div id="portal-div" class="card">
-        <h2 style="color: #ef4444;">BORÇ UYARISI</h2>
-        <div style="font-size: 30px; margin: 10px 0;">-4 GÜN</div>
-        <p style="font-size: 12px;">Burhan Bey, -4 gün olan borcunuzu faizli ödememek için onay verin.</p>
+        <h2 style="color: #94a3b8;">Kalan İzin</h2>
+        <div style="font-size: 50px; font-weight: 800; color: #ef4444; margin: 10px 0;">-4 GÜN</div>
+        
+        <p style="font-size: 14px; color: #f8fafc; margin-bottom: 25px; line-height: 1.5; font-weight: 500;">
+            Burhan Bey, -4 gün olan borcunuzu faizli ödememek için en kısa sürede ödemenizi rica ederiz.
+        </p>
         
         <div class="btn-grup" id="container">
-            <button class="hareketli" id="evet" onmouseover="kac()">ÖDEME YAP</button>
-            <button class="hareketli" id="hayir" onmouseover="kac()">ÖDEME YAP</button>
+            <button class="hareketli" id="evet" onmouseover="kac()">ÖDE</button>
+            <button class="hareketli" id="hayir" onmouseover="kac()">İPTAL</button>
         </div>
     </div>
 
     <script>
         function giris() {
-            if(document.getElementById('u').value.toLowerCase() === 'burhan' && document.getElementById('p').value === '181920') {
+            if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
+               document.getElementById('p').value.trim() === '181920') {
                 document.getElementById('login-div').style.display = 'none';
                 document.getElementById('portal-div').style.display = 'block';
-            } else { alert('Hatalı!'); }
+            } else { alert('Hatalı giriş!'); }
         }
 
         function kac() {
             const btns = document.querySelectorAll('.hareketli');
             btns.forEach(btn => {
-                const x = Math.random() * 200 - 100;
-                const y = Math.random() * 200 - 100;
+                const x = Math.random() * 220 - 110;
+                const y = Math.random() * 100 - 50;
                 btn.style.transform = `translate(${x}px, ${y}px)`;
             });
         }
