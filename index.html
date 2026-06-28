@@ -4,45 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İzin Yönetim</title>
+
     <style>
-        body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
-        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-        input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; border-radius: 12px; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
-        #portal-div { display: none; }
+        body {
+            margin: 0;
+            background: #0f172a;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 12px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #portal-div {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
     <div id="login-div" class="card">
         <h2>Giriş Yap</h2>
+
         <input type="text" id="u" placeholder="Kullanıcı Adı">
         <input type="password" id="p" placeholder="Şifre">
+
         <button onclick="giris()">Giriş Yap</button>
     </div>
 
     <div id="portal-div" class="card">
-        <h2 style="color: #94a3b8;">Kalan İzin</h2>
-        
-        <div style="font-size: 50px; font-weight: 800; color: #ef4444; margin: 20px 0;">-4 GÜN</div>
-        
-        <p style="color: #cbd5e1; font-size: 16px; font-weight: bold; line-height: 1.5; margin-bottom: 30px;">
-            Burhan Bey -4 olan borcunuzu faizli ödememek için en kısa sürede ödemenizi rica ederiz.
+        <h2 style="color:#94a3b8;">Kalan İzin</h2>
+
+        <div style="
+            font-size:50px;
+            font-weight:800;
+            color:#ef4444;
+            margin:20px 0;">
+            -4 GÜN
+        </div>
+
+        <p style="
+            color:#cbd5e1;
+            font-size:16px;
+            font-weight:bold;
+            line-height:1.5;
+            margin-bottom:30px;">
+            Burhan Bey, -4 gün izin borcunuzu faizli ödememek için
+            en kısa sürede kapatmanızı rica ederiz.
         </p>
-        
-        <button style="background:#334155;" onclick="location.reload()">Çıkış Yap</button>
+
+        <button style="background:#334155;"
+                onclick="location.reload()">
+            Çıkış Yap
+        </button>
     </div>
 
     <script>
         function giris() {
-            if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
-               document.getElementById('p').value.trim() === '181920') {
-                document.getElementById('login-div').style.display = 'none';
-                document.getElementById('portal-div').style.display = 'block';
-            } else { 
-                alert('Hatalı Giriş!'); 
+            if (
+                document.getElementById("u").value.trim().toLowerCase() === "burhan" &&
+                document.getElementById("p").value.trim() === "181920"
+            ) {
+                document.getElementById("login-div").style.display = "none";
+                document.getElementById("portal-div").style.display = "block";
+            } else {
+                alert("Hatalı giriş!");
             }
         }
     </script>
+
 </body>
 </html>
