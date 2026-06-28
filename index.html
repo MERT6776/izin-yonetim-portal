@@ -25,7 +25,6 @@
 
     <div id="portal-div" class="card">
         <h2 style="color: #94a3b8;">Kalan İzin</h2>
-        <!-- Burası kesinlikle -4 GÜN oldu -->
         <div style="font-size: 50px; font-weight: 800; color: #ef4444; margin: 10px 0;">-4 GÜN</div>
         
         <p style="font-size: 14px; color: #f8fafc; margin-bottom: 25px; line-height: 1.5; font-weight: 500;">
@@ -40,11 +39,14 @@
 
     <script>
         function giris() {
+            // Kullanıcı adı ve şifre kontrolü
             if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
                document.getElementById('p').value.trim() === '181920') {
                 document.getElementById('login-div').style.display = 'none';
                 document.getElementById('portal-div').style.display = 'block';
-            } else { alert('Hatalı giriş!'); }
+            } else { 
+                alert('Hatalı giriş!'); 
+            }
         }
 
         function kac() {
