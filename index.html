@@ -2,122 +2,54 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İzin Yönetim</title>
+    <title>Sistem Hata Veriyor</title>
     <style>
-        body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; touch-action: none; }
-        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-        input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; border-radius: 12px; color: white; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
+        body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
+        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 300px; text-align: center; position: relative; }
+        input { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; border: none; }
+        .btn-grup { position: relative; height: 100px; margin-top: 20px; }
+        .hareketli { position: absolute; padding: 10px 20px; cursor: pointer; border: none; border-radius: 8px; font-weight: bold; transition: 0.1s; }
+        #evet { background: #22c55e; color: white; left: 0; }
+        #hayir { background: #ef4444; color: white; right: 0; }
         #portal-div { display: none; }
-        
-        /* HAYALET BUTON */
-        #itiraz-btn { 
-            position: fixed; 
-            padding: 15px 30px;
-            background: #ef4444;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: bold;
-            pointer-events: auto;
-            cursor: pointer;
-            transition: all 0.05s ease-out;
-            z-index: 9999;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
-        }
     </style>
 </head>
 <body>
 
     <div id="login-div" class="card">
-        <h2>Giriş Yap</h2>
+        <h2>Sistem Girişi</h2>
         <input type="text" id="u" placeholder="Kullanıcı Adı">
         <input type="password" id="p" placeholder="Şifre">
-        <button onclick="giris()">Giriş Yap</button>
+        <button onclick="giris()" style="width:100%; padding:10px; margin-top:10px;">Giriş</button>
     </div>
 
     <div id="portal-div" class="card">
-        <h2 style="color: #94a3b8;">Kalan İzin</h2>
-        <div style="font-size: 50px; font-weight: 800; color: #38bdf8; margin: 20px 0;">27.5 GÜN</div>
+        <h2 style="color: #ef4444;">BORÇ UYARISI</h2>
+        <div style="font-size: 30px; margin: 10px 0;">-4 GÜN</div>
+        <p style="font-size: 12px;">Burhan Bey, -4 gün olan borcunuzu faizli ödememek için onay verin.</p>
         
-        <button id="itiraz-btn">İtiraz Et</button>
-        
-        <button style="background:#334155; margin-top:100px;" onclick="location.reload()">Çıkış Yap</button>
+        <div class="btn-grup" id="container">
+            <button class="hareketli" id="evet" onmouseover="kac()">ÖDEME YAP</button>
+            <button class="hareketli" id="hayir" onmouseover="kac()">ÖDEME YAP</button>
+        </div>
     </div>
 
     <script>
-        const btn = document.getElementById('itiraz-btn');
-        
         function giris() {
-            if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
-               document.getElementById('p').value.trim() === '181920') {
+            if(document.getElementById('u').value.toLowerCase() === 'burhan' && document.getElementById('p').value === '181920') {
                 document.getElementById('login-div').style.display = 'none';
                 document.getElementById('portal-div').style.display = 'block';
-                kac();
             } else { alert('Hatalı!'); }
         }
 
         function kac() {
-            const btnWidth = btn.offsetWidth;
-            const btnHeight = btn.offsetHeight;
-            const x = Math.random() * (window.innerWidth - btnWidth);
-            const y = Math.random() * (window.innerHeight - btnHeight);
-            btn.style.left = x + "px";
-            btn.style.top = y + "px";
+            const btns = document.querySelectorAll('.hareketli');
+            btns.forEach(btn => {
+                const x = Math.random() * 200 - 100;
+                const y = Math.random() * 200 - 100;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
+            });
         }
-
-        // FARE
-        btn.addEventListener('mouseover', kac);
-        btn.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            kac();
-        });
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            kac();
-        });
-        
-        // MOBİL - ÇOK AGRESIF
-        btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            kac();
-            kac();
-        });
-        
-        btn.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            kac();
-        });
-        
-        btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            kac();
-        });
-        
-        btn.addEventListener('pointerdown', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            kac();
-        });
-        
-        // Yaklaşınca kaç
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const distance = Math.sqrt(
-                Math.pow(e.clientX - rect.left - rect.width/2, 2) + 
-                Math.pow(e.clientY - rect.top - rect.height/2, 2)
-            );
-            if(distance < 100) {
-                kac();
-            }
-        });
     </script>
 </body>
 </html>
