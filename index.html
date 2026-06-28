@@ -2,60 +2,46 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Uyarısı</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İzin Yönetim</title>
     <style>
         body { margin: 0; background: #0f172a; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; overflow: hidden; }
-        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 350px; text-align: center; position: relative; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #475569; background: #334155; color: white; box-sizing: border-box; }
-        .btn-grup { position: relative; height: 120px; margin-top: 20px; }
-        .hareketli { position: absolute; padding: 12px 25px; cursor: pointer; border: none; border-radius: 8px; font-weight: bold; transition: 0.1s; color: white; }
-        #evet { background: #0ea5e9; left: 0; }
-        #hayir { background: #ef4444; right: 0; }
+        .card { background: #1e293b; padding: 40px; border-radius: 30px; width: 90%; max-width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        input { width: 100%; padding: 14px; margin: 10px 0; background: #334155; border: 1px solid #475569; border-radius: 12px; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: #0ea5e9; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; }
         #portal-div { display: none; }
     </style>
 </head>
 <body>
 
     <div id="login-div" class="card">
-        <h2>Sistem Girişi</h2>
+        <h2>Giriş Yap</h2>
         <input type="text" id="u" placeholder="Kullanıcı Adı">
         <input type="password" id="p" placeholder="Şifre">
-        <button onclick="giris()" style="width:100%; padding:12px; margin-top:10px; background:#0ea5e9; border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer;">Giriş Yap</button>
+        <button onclick="giris()">Giriş Yap</button>
     </div>
 
     <div id="portal-div" class="card">
         <h2 style="color: #94a3b8;">Kalan İzin</h2>
-        <div style="font-size: 50px; font-weight: 800; color: #ef4444; margin: 10px 0;">-4 GÜN</div>
         
-        <p style="font-size: 14px; color: #f8fafc; margin-bottom: 25px; line-height: 1.5; font-weight: 500;">
-            Burhan Bey, -4 gün olan borcunuzu faizli ödememek için en kısa sürede ödemenizi rica ederiz.
+        <div style="font-size: 50px; font-weight: 800; color: #ef4444; margin: 20px 0;">-4 GÜN</div>
+        
+        <p style="color: #cbd5e1; font-size: 16px; font-weight: bold; line-height: 1.5; margin-bottom: 30px;">
+            Burhan Bey -4 olan borcunuzu faizli ödememek için en kısa sürede ödemenizi rica ederiz.
         </p>
         
-        <div class="btn-grup" id="container">
-            <button class="hareketli" id="evet" onmouseover="kac()">ÖDE</button>
-            <button class="hareketli" id="hayir" onmouseover="kac()">İPTAL</button>
-        </div>
+        <button style="background:#334155;" onclick="location.reload()">Çıkış Yap</button>
     </div>
 
     <script>
         function giris() {
-            // Kullanıcı adı ve şifre kontrolü
             if(document.getElementById('u').value.trim().toLowerCase() === 'burhan' && 
                document.getElementById('p').value.trim() === '181920') {
                 document.getElementById('login-div').style.display = 'none';
                 document.getElementById('portal-div').style.display = 'block';
             } else { 
-                alert('Hatalı giriş!'); 
+                alert('Hatalı Giriş!'); 
             }
-        }
-
-        function kac() {
-            const btns = document.querySelectorAll('.hareketli');
-            btns.forEach(btn => {
-                const x = Math.random() * 200 - 100;
-                const y = Math.random() * 80 - 40;
-                btn.style.transform = `translate(${x}px, ${y}px)`;
-            });
         }
     </script>
 </body>
