@@ -25,7 +25,7 @@
 
     <div id="portal-div" class="card">
         <h2 style="color: #94a3b8;">Kalan İzin</h2>
-        <!-- Burayı -4 olarak düzelttim -->
+        <!-- Burası kesinlikle -4 GÜN oldu -->
         <div style="font-size: 50px; font-weight: 800; color: #ef4444; margin: 10px 0;">-4 GÜN</div>
         
         <p style="font-size: 14px; color: #f8fafc; margin-bottom: 25px; line-height: 1.5; font-weight: 500;">
@@ -50,8 +50,8 @@
         function kac() {
             const btns = document.querySelectorAll('.hareketli');
             btns.forEach(btn => {
-                const x = Math.random() * 220 - 110;
-                const y = Math.random() * 100 - 50;
+                const x = Math.random() * 200 - 100;
+                const y = Math.random() * 80 - 40;
                 btn.style.transform = `translate(${x}px, ${y}px)`;
             });
         }
